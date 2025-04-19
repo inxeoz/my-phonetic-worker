@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WASM Test</title>
+</head>
+<body>
+<script type="module">
+    import init, { PhoneticConverter } from "./pkg01/phonetic.js";
+
+    async function run() {
+        await init();  // Load the WebAssembly module
+        window.converter = new PhoneticConverter();  // Create a global converter
+    }
+
+    window.convertText = async function () {  // Attach function to window
+        const inputText = document.getElementById("input-text").value;
+        if (!window.converter) {
+            document.getElementById("output").textContent = "WASM not loaded yet!";
+            return;
+        }
+        const result = window.converter.convert(inputText);
+        document.getElementById("output").textContent = JSON.stringify(result, null, 2);
+    };
+
+    run();
+</script>
+
+
+<h1>Phonetic Converter</h1>
+<label for="input-text"></label><input type="text" id="input-text" placeholder="Enter text">
+<button onclick="convertText()">Convert</button>
+<pre id="output"></pre>
+
+
+</body>
+</html>
