@@ -1,5 +1,6 @@
 import init, { PhoneticConverter } from '../pkg/phonetic.js';
 import wasmModule from '../pkg/phonetic_bg.wasm'; // Direct import, no bindings
+import index_html from '../public/index.html'
 
 let wasmInitialized = false;
 let converter;
@@ -67,10 +68,14 @@ async function handleRequest(request) {
 		}
 	}
 
-	return new Response('Not found', {
-		status: 404,
-		headers: headers
+	return new Response(index_html, {
+		status: 200,
+		headers: {
+			"Content-Type": "text/html",
+			"Access-Control-Allow-Origin": "*",
+		},
 	});
+
 }
 
 
