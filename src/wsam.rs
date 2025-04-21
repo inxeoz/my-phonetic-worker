@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::path::Path;
 use wasm_bindgen::prelude::*;
 use serde::{Deserialize, Serialize};
 use serde_wasm_bindgen::to_value;
@@ -20,6 +21,34 @@ static IPA_DICT: Lazy<Mutex<HashMap<String, String>>> = Lazy::new(|| {
     Mutex::new(dict)
 });
 
+//TODO need to unccoment
+// static CMU_DICT: Lazy<Mutex<HashMap<String, String>>> = Lazy::new(|| {
+//     let mut dict = HashMap::new();
+//     let data = include_str!("cmudict.dict");
+//     for line in data.lines() {
+//         let parts: Vec<&str> = line.split_whitespace().collect();
+//         if parts.len() >= 2 {
+//             let word = parts[0].to_lowercase();
+//             let phonetic = parts[1..].join(" ");
+//             dict.insert(word, phonetic);
+//         }
+//     }
+//     Mutex::new(dict)
+// });
+// 
+// pub fn mapper(file_path : &str) -> Mutex<HashMap<String, String>> {
+//     let mut dict = HashMap::new();
+//     let data = include_str!("cmudict.dict");
+//     for line in data.lines() {
+//         let parts: Vec<&str> = line.split_whitespace().collect();
+//         if parts.len() >= 2 {
+//             let word = parts[0].to_lowercase();
+//             let phonetic = parts[1..].join(" ");
+//             dict.insert(word, phonetic);
+//         }
+//     }
+//     Mutex::new(dict)
+// }
 #[derive(Deserialize)]
 struct RequestData {
     text: String,
